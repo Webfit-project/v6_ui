@@ -34,6 +34,12 @@ html, body{
   width: 100%;
   overflow-x: hidden;
   background-color: @body-color;
+  @media @phone {
+    font-size: 0.9em;
+  }
+  @media @tablet {
+    font-size: 0.95em;
+  }
 }
 
 .modal-dialog {
@@ -51,12 +57,12 @@ html, body{
 
   button[protected-url-btn] {
     padding: 0 5px;
-    font-size: 20px;
+    font-size: 1.4em;
     float: left;
     height: 34px;
     span {
       top: 3px;
-      font-size: 20px;
+      font-size: 1.4em;
       width: 100%;
     }
   }
@@ -306,7 +312,6 @@ app-pagination.areas, app-pagination.articles app-pagination.books {
     border-radius: 50%;
     width: 38px;
     height: 38px;
-    font-size: 1.3em;
     padding-left: 9px;
     padding-top: 8px;
   }
@@ -322,7 +327,6 @@ app-pagination.areas, app-pagination.articles app-pagination.books {
 
   p {
     display: none;
-    font-size: 1em;
     color: white !important;
   }
 }
@@ -866,11 +870,6 @@ ul {
     flex-wrap: wrap;
 
     app-delete-association {
-      font-size: 15px;
-
-      @media @phone {
-        font-size: 14px;
-      }
       .glyphicon {
         color: red;
       }
@@ -958,10 +957,10 @@ ul {
     }
   }
   .preferences-activities .route-activity {
-    font-size: 5em;
+    font-size: 4em;
     margin-bottom: 10px;
     @media @big {
-      font-size: 7em;
+      font-size: 6em;
     }
   }
   .preferences-activities, .preferences-areas {
@@ -985,7 +984,7 @@ ul {
     height: 30px;
     width: 30px;
     padding: 5px;
-    font-size: 20px;
+    font-size: 1.4em;
 
     &.glyphicon-plus-sign {
       color: @bright-green;
