@@ -5,11 +5,6 @@
   flex-flow: wrap;
   margin-left: -4px;
   margin-top: -4px;
-
-  .list-item {
-    min-height: initial;
-  }
-
   & + .no-results {
     display: none;
   }
@@ -22,7 +17,6 @@
   margin-top: 4px;
   outline: none;
   border-radius: 7px;
-  min-height: 80px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   transition: .2s ease-in-out;
@@ -57,11 +51,10 @@
     height: 100%;
     word-wrap: break-word;
     color: #767676;
-    padding: 10px;
+    padding: 5px;
 
     @media @phone {
       font-size: 0.9em;
-      padding: 7px;
     }
 
     &:hover .list-item-title {
@@ -81,9 +74,6 @@
     white-space: nowrap;
     font-weight: normal;
   }
-  .activities {
-    margin-top: 5px;
-  }
   .list-item-title {
     font-weight: bold;
     color: graytext;
@@ -98,6 +88,14 @@
   .location {
     line-height: normal;
     margin-right: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 1;
+     .value {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .list-item-title-lang {
@@ -146,6 +144,7 @@
     }
     .full-rating {
       flex-wrap: wrap;
+      align-items: baseline;
       .glyphicon {
         font-size: 1.3em;
         margin-left: -3px;
@@ -169,10 +168,10 @@
     color: teal;
   }
   .activities .activity {
-    font-size: 2.5em;
+    font-size: 2em;
     color: @C2C-orange;
     @media @phone {
-      font-size: 2.5em;
+      font-size: 2em;
     }
   }
   .set-main-waypoint {
@@ -186,16 +185,16 @@
   &.waypoints {
 
     .waypoint-type {
-      font-size: 3em;
+      font-size: 2em;
       color: @C2C-orange;
       margin-right: 0;
       @media @phone {
-        font-size: 2.5em;
+        font-size: 2em;
         margin-left: 10px;
       }
     }
     .list-item-info {
-      flex-basis: 75%;
+      flex-basis: 90%;
 
     }
     .waypoint-infos {
@@ -203,12 +202,6 @@
       .flex();
       align-items: baseline;
       flex-wrap: wrap;
-    }
-  }
-  // .list-item.routes
-  &.routes {
-    .activities {
-      margin-bottom: -5px;
     }
   }
   // .list-item.books
@@ -249,19 +242,11 @@
   // .list-item.outings
   &.outings {
     max-height: inherit !important;
-
-    .icon-user {
-      font-size: 3em;
-      padding-right: 5px;
-      float: left;
-      font-size: 25px;
-      color: #b2bcc4 !important;
-    }
     .activities {
       margin-right: 5px;
     }
     .activity-author {
-      .calc(width, "100% - 25px");
+      .calc(width, "100% - 20px");
       .flex();
       justify-content: space-between;
       flex-wrap: wrap;
@@ -282,6 +267,9 @@
     }
     .glyphicon-trash {
       .calc(top, "100% - 60px");
+    }
+    .date-location {
+      justify-content: space-between;
     }
 
   } // end outing cards
@@ -362,6 +350,7 @@
 
 .list-item {
   flex: 1 0 300px;
+  min-width: 0;
   margin-top: 4px;
   margin-left: 4px;
 
@@ -377,6 +366,7 @@
 .list.areas {
   .list-item {
     flex: 1 0 200px;
+    min-width: 0;
   }
 }
 
@@ -403,54 +393,23 @@
 
 #feed .list-item {
   margin-left: 0;
-  margin-top: 10px;
-
-  .list-item-info {
-    min-height: 60px;
-  }
   &.waypoints .waypoint-type {
-    flex-basis: 25%;
+    flex-basis: 10%;
     @media @phone {
       flex-basis: 0;
     }
   }
   &.outings {
-    .list-item-info {
-      padding-left: 30%;
-    }
+    border-color: @C2C-orange;
     .activities {
       margin-bottom: 0;
     }
-    .icon-user {
-      margin-bottom: 5px;
-      width: 100%;
-      font-size: 30px;
-      text-align: center;
-    }
-    .outing-author, .date {
-      left: 10px;
-      width: 25%;
-      position: absolute;
-      justify-content: center;
-      .flex();
-    }
+
     .outing-author {
-      top: 33%;
-      flex-flow: wrap;
-      align-content: flex-start;
-      justify-content: center;
-    }
-    .author-name {
-      line-height: normal;
-      word-break: break-all;
-      word-break: break-word; // non-standard for webkit
-      text-align: center;
+      display: none;
     }
     .date {
-      top: 13%;
-      .glyphicon {
-        display: none;
-      }
+      font-size: 1.2em; 
     }
   }
 }
