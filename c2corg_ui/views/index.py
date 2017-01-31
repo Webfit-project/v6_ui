@@ -1,6 +1,7 @@
+from pyramid.httpexceptions import HTTPInternalServerError
 from pyramid.view import view_config
 
-from c2corg_ui.views import get_or_create_page
+from c2corg_ui.views import get_or_create_page, call_api
 
 
 class Pages(object):
@@ -56,6 +57,60 @@ class Pages(object):
     def following(self):
         return self._get_page(
             'following', 'c2corg_ui:templates/following.html')
+
+    @view_config(route_name='whatsnewdata', renderer='json')
+    def whatsnewdata(self):
+        # headers = None
+        # if 'Authorization' in self.request.headers:
+        #     headers = {
+        #         'Authorization': self.request.headers.get('Authorization')
+        #     }
+        resp, data = call_api(self.settings, 'document/changes')
+
+        if resp.status_code != 200:
+            raise HTTPInternalServerError(
+                "An error occurred while loading the document")
+
+        if data.get('not_authorized', False):
+            self.template_input.update({
+                'not_authorized': True
+            })
+        else:
+            return data
+
+    @view_config(route_name='whatsnew',
+                 renderer='c2corg_ui:templates/whatsnew.html')
+    def whatsnew(self):
+        headers = None
+
+        resp, data = call_api(self.settings, 'document/changes')
+
+        # if 'Authorization' not in self.request.headers:
+        #     raise HTTPInternalServerError(
+        #         "An error occurred while loading the document")
+        # else:
+
+        self.template_input.update({
+            'whatsnew': data['changes']
+        })
+
+        return self.template_input
+
+        #     headers = {
+        #         'Authorization': self.request.headers.get('Authorization')
+        #     }
+        # url = '%s/%d?l=%s' % (self._API_ROUTE, id, lang)
+        # resp, data = call_api(self.settings, url, headers)
+        #
+        # if resp.status_code != 200:
+        #     raise HTTPInternalServerError(
+        #         "An error occurred while loading the document")
+        #
+        # if data.get('not_authorized', False):
+        #     self.template_input.update({
+        #         'not_authorized': True
+        #     })
+        # else:
 
     def _get_page(self, page_key, template, no_etag=False):
         return get_or_create_page(

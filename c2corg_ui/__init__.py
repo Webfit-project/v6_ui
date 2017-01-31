@@ -202,6 +202,7 @@ def main(global_config, **settings):
     config.add_route('sitemap', '/sitemaps/{doc_type:[a-z]{1}}/{i:\d+}.xml')
 
     config.add_route('whatsnew', '/whatsnew')
+    config.add_route('whatsnewdata', '/whatsnewdata')
 
     # health services
     config.add_route('health', '/health')

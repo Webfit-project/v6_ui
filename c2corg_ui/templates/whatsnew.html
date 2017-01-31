@@ -1,0 +1,63 @@
+<%inherit file="base.html"/>
+<%namespace file="helpers/common.html" import="show_title"/>
+
+<%block name="metarobots">
+  <meta name="robots" content="index,follow">
+</%block>
+
+<header class="page-main-title">
+  <h3><span translate>Latest changes</span>
+    <span class="badge" ng-cloak></span>
+  </h3>
+</header>
+
+<section class="documents-list-section" app-whatsnew>
+
+  <div app-WhatsnewController>
+    <h2 class="page-header">Lazy loading managed array</h2>
+    <div class="bs-callout bs-callout-info">
+      <h4>Overview</h4>
+      <p>You are not limited to having the data array to hand at the time when <code>NgTableParams</code> is created. So for example you could load the data using <code>$http</code> and then hand this to <code>NgTableParams</code></p>
+    </div>
+
+    <div class="form-inline" style="margin-bottom: 20px">
+
+      <div class="form-group">
+
+        <label for="datasets">Select document type</label>
+        <select id="datasets" class="form-control" ng-model="" ng-options=""ng-change=""></select>
+
+##         <div>
+##             <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+##
+##             <h4>Inline</h4>
+##             <div style="display:inline-block; min-height:290px;">
+##               <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+##             </div>
+##
+##             <hr/>
+##             <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+##             <button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>
+##             <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+##             <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>
+##         </div>
+
+      </div>
+
+    </div>
+
+    <div id="whatsnew" app-loading>
+      Nothing is loaded here
+    </div>
+
+    <table ng-table="changes.tableParams" class="table table-condensed table-bordered table-striped">
+      <tr ng-repeat="row in $data">
+        <td data-title="'Name'" filter="{name: 'text'}" sortable="'name'">{{row.name}}</td>
+        <td data-title="'Age'" filter="{age: 'number'}" sortable="'age'">{{row.age}}</td>
+        <td data-title="'Money'" filter="{money: 'number'}" sortable="'money'">{{row.money}}</td>
+      </tr>
+    </table>
+
+  </div>
+
+</section>

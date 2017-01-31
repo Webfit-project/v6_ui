@@ -17,6 +17,8 @@ goog.require('app.XreportController');
 goog.require('app.OutingFiltersController');
 goog.require('app.RouteEditingController');
 goog.require('app.XreportFiltersController');
+goog.require('app.WhatsnewController');
+goog.require('app.WhatsnewDirective');
 goog.require('app.MapController');
 goog.require('app.addAssociationDirective');
 goog.require('app.advancedSearchDirective');
