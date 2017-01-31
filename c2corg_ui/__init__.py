@@ -83,6 +83,7 @@ def main(global_config, **settings):
     config.add_route(
         'waypoints_diff', '/waypoints/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('waypoints_preview', '/waypoints/preview')
+    config.add_route('waypoints_whatsnew', '/waypoints/whatsnew')
 
     config.add_route('routes_index', '/routes')
     config.add_route('routes_add', '/routes/add')
@@ -95,6 +96,7 @@ def main(global_config, **settings):
     config.add_route(
         'routes_diff', '/routes/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('routes_preview', '/routes/preview')
+    config.add_route('routes_whatsnew', '/routes/whatsnew')
 
     config.add_route('outings_index', '/outings')
     config.add_route('outings_add', '/outings/add')
@@ -108,6 +110,7 @@ def main(global_config, **settings):
     config.add_route(
         'outings_diff', '/outings/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('outings_preview', '/outings/preview')
+    config.add_route('outings_whatsnew', '/outings/whatsnew')
 
     config.add_route('articles_index', '/articles')
     config.add_route('articles_add', '/articles/add')
@@ -121,6 +124,7 @@ def main(global_config, **settings):
     config.add_route(
         'articles_diff', '/articles/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('articles_preview', '/articles/preview')
+    config.add_route('articles_whatsnew', '/articles/whatsnew')
 
     config.add_route('books_index', '/books')
     config.add_route('books_add', '/books/add')
@@ -134,6 +138,7 @@ def main(global_config, **settings):
     config.add_route(
         'books_diff', '/books/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('books_preview', '/books/preview')
+    config.add_route('books_whatsnew', '/books/whatsnew')
 
     config.add_route('xreports_index', '/xreports')
     config.add_route('xreports_add', '/xreports/add')
@@ -148,6 +153,7 @@ def main(global_config, **settings):
         'xreports_diff', '/xreports/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('xreports_preview', '/xreports/preview')
     config.add_route('xreports_data', '/xreports/data/{id:\d+}/{lang}')
+    config.add_route('xreports_whatsnew', '/xreports/whatsnew')
 
     config.add_route('images_index', '/images')
     config.add_route('images_edit', '/images/edit/{id:\d+}/{lang}')
@@ -160,6 +166,7 @@ def main(global_config, **settings):
     config.add_route(
         'images_diff', '/images/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('images_preview', '/images/preview')
+    config.add_route('images_whatsnew', '/images/whatsnew')
 
     config.add_route('areas_index', '/areas')
     config.add_route('areas_edit', '/areas/edit/{id:\d+}/{lang}')
@@ -172,12 +179,14 @@ def main(global_config, **settings):
     config.add_route(
         'areas_diff', '/areas/diff/{id:\d+}/{lang}/{v1}/{v2}')
     config.add_route('areas_preview', '/areas/preview')
+    config.add_route('areas_whatsnew', '/areas/whatsnew')
 
     config.add_route('profiles_edit', '/profiles/edit/{id:\d+}/{lang}')
     config.add_route('profiles_view', '/profiles/{id:\d+}/{lang}')
     config.add_route('profiles_view_id', '/profiles/{id:\d+}')
     config.add_route('profiles_data', '/profiles/data/{id:\d+}/{lang}')
     config.add_route('profiles_preview', '/profiles/preview')
+    config.add_route('profiles_whatsnew', '/profiles/whatsnew')
 
     config.add_route('auth', '/auth')
     config.add_route('auth-sso', '/auth-sso')
@@ -191,6 +200,8 @@ def main(global_config, **settings):
 
     config.add_route('sitemap_index', '/sitemap.xml')
     config.add_route('sitemap', '/sitemaps/{doc_type:[a-z]{1}}/{i:\d+}.xml')
+
+    config.add_route('whatsnew', '/whatsnew')
 
     # health services
     config.add_route('health', '/health')
