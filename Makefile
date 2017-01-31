@@ -48,6 +48,7 @@ LIBS_JS_FILES += \
     node_modules/angular-slug/angular-slug.js \
     node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js \
     node_modules/file-saver/FileSaver.min.js \
+    node_modules/ng-table/bundles/ng-table.min.js \
     node_modules/slug/slug.js
 
 # CSS files of dependencies that are concatenated into a single file
@@ -56,7 +57,8 @@ LIBS_CSS_FILES += \
     node_modules/slick-carousel/slick/slick.css \
     node_modules/photoswipe/dist/photoswipe.css \
     node_modules/photoswipe/dist/default-skin/default-skin.css \
-    node_modules/slick-carousel/slick/slick-theme.css
+    node_modules/slick-carousel/slick/slick-theme.css \
+    node_modules/ng-table/bundles/ng-table.css
 
 
 # variables used in config files (*.in)

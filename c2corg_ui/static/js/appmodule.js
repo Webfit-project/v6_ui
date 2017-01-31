@@ -19,6 +19,7 @@ angular.module('floatThead', []);
 app.module = angular.module('app', [
   ngeo.module.name,
   'gettext',
+  'ngTable',
   'ngMessages',
   'ngCookies',
   'ui.bootstrap',
