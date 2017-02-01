@@ -30,7 +30,7 @@ app.module.directive('appWhatsnew', app.WhatsnewDirective);
  * @struct
  * @ngInject
  */
-app.WhatsnewController = function($scope, $http, $compile, appAlerts) {
+app.WhatsnewController = function($scope, $http, $compile, appAlerts, ngTableParams) {
 
   /**
    * @type {app.Alerts}
@@ -63,6 +63,17 @@ app.WhatsnewController = function($scope, $http, $compile, appAlerts) {
   }.bind(this));
   promise.then(function(response) {
     var element = angular.element('#whatsnew');
+
+    this.tableParams = new NgTableParams({}, {
+      getData: function(params) {
+        // ajax request to api
+        return Api.get(params.url()).$promise.then(function(data) {
+          params.total(data.inlineCount); // recal. page nav controls
+          return data.results;
+        });
+      }
+    });
+
     element.html(response['data']);
     $compile(element.contents())($scope.$parent);
   }.bind(this));
