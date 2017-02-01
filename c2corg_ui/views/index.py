@@ -81,7 +81,7 @@ class Pages(object):
     @view_config(route_name='whatsnew',
                  renderer='c2corg_ui:templates/whatsnew.html')
     def whatsnew(self):
-        headers = None
+        # headers = None
 
         resp, data = call_api(self.settings, 'document/changes')
 
@@ -91,7 +91,8 @@ class Pages(object):
         # else:
 
         self.template_input.update({
-            'whatsnew': data['changes']
+            'documents': data['documents'],
+            'count': data['count']
         })
 
         return self.template_input

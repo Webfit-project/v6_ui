@@ -20,6 +20,7 @@ app.module = angular.module('app', [
   ngeo.module.name,
   'gettext',
   'ngTable',
+  'ngResource',
   'ngMessages',
   'ngCookies',
   'ui.bootstrap',

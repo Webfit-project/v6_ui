@@ -5,59 +5,115 @@
   <meta name="robots" content="index,follow">
 </%block>
 
-<header class="page-main-title">
-  <h3><span translate>Latest changes</span>
-    <span class="badge" ng-cloak></span>
-  </h3>
-</header>
+## <header class="page-main-title">
+##   <h3><span translate>Latest changes</span>
+##     <span class="badge" ng-cloak></span>
+##   </h3>
+## </header>
 
-<section class="documents-list-section" app-whatsnew>
 
-  <div app-WhatsnewController>
-    <h2 class="page-header">Lazy loading managed array</h2>
-    <div class="bs-callout bs-callout-info">
-      <h4>Overview</h4>
-      <p>You are not limited to having the data array to hand at the time when <code>NgTableParams</code> is created. So for example you could load the data using <code>$http</code> and then hand this to <code>NgTableParams</code></p>
-    </div>
+<section class="documents-list-section">
+##   <section class="view-details-section">
 
-    <div class="form-inline" style="margin-bottom: 20px">
+    <div app-whatsnew class="content" style="margin: 20px;">
 
-      <div class="form-group">
+  ##     <div class="form-inline" style="margin-bottom: 20px">
+  ##       <div class="form-group">
+  ##         <label for="datasets">Select document type to filter</label>
+  ##         <select id="datasets" class="form-control" ng-model="" ng-options=""ng-change=""></select>
+  ##       </div>
+  ##     </div>
 
-        <label for="datasets">Select document type</label>
-        <select id="datasets" class="form-control" ng-model="" ng-options=""ng-change=""></select>
+      <div class="bs-callout bs-callout-info">
+        <h4>Table using Mako template</h4>
 
-##         <div>
-##             <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
-##
-##             <h4>Inline</h4>
-##             <div style="display:inline-block; min-height:290px;">
-##               <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
-##             </div>
-##
-##             <hr/>
-##             <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
-##             <button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>
-##             <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
-##             <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>
-##         </div>
+      % if documents:
+        <div id="whatsnew" class="content">
+          i have data in my template
+          ${documents[0]}
+        </div>
+        <table class="table table-condensed table-bordered table-striped">
+          <tr>
+            <th>version_id</th>
+            <th>document_id</th>
+            <th>lang</th>
+            <th>title</th>
+            <th>summary</th>
+            <th>username</th>
+            <th>comment</th>
+            <th>written_at</th>
+          </tr>
+        % for d in documents:
+          <tr>
+            <td>${d['version_id']}</td>
+            <td>${d['document']['document_id']}</td>
+            <td>${d['lang']}</td>
+            <td>${d['document']['title']}</td>
+            <td>${d['document']['summary']}</td>
+            <td>${d['user']['username']}</td>
+            <td>${d['comment']}</td>
+            <td>${d['written_at']}</td>
+          </tr>
+        % endfor
+        </table>
+      % endif
 
       </div>
 
+      <div id="whatsnew" ng-repeat="col in wCtrl.columns">{{col.title}} a</div>
+      <div id="whatsnew" ng-repeat="col in wCtrl.columns">{{col.title()}} b</div>
+
+      <label class="checkbox-inline" ng-repeat="col in wctrl.columns">
+        <input type="checkbox" ng-model-options="{getterSetter:true}" ng-model="col.show"/>{{col.title()}}
+      </label>
+
+      <div class="bs-callout bs-callout-info">
+        <h4>Table using ngTable</h4>
+        <table ng-table="wCtrl.defaultConfigTableParams"
+               class="table table-condensed table-bordered table-striped"
+               ng-table-columns-binding="wCtrl.columns">
+          <tr ng-repeat="doc in $data">
+            <td data-title="'version_id'" filter="{version_id: 'number'}" sortable="'version_id'" >{{doc['version_id']}}</td>
+            <td data-title="'document_id'" filter="{document_id: 'number'}" sortable="'document_id'">{{doc['document']['document_id']}}</td>
+            <td data-title="'lang'" filter="{lang: 'text'}" sortable="'lang'">{{doc['lang']}}</td>
+            <td data-title="'title'" filter="{title: 'text'}" sortable="'title'">{{doc['document']['title']}}</td>
+            <td data-title="'summary'" filter="{summary: 'text'}" sortable="'summary'">{{doc['document']['summary']}}</td>
+            <td data-title="'username'" filter="{username: 'text'}" sortable="'username'"
+                href="http://localhost:6558/profiles/811849/en"
+                target="self" ng-href="http://localhost:6558/profiles/{{doc['user']['user_id']}}/{{doc['user']['lang']}}">{{doc['user']['username']}}</td>
+            <td data-title="'comment'" filter="{comment: 'text'}" sortable="'comment'">{{doc['comment']}}</td>
+            <td data-title="'written_at'" filter="{written_at: 'text'}" sortable="'written_at'">{{doc['written_at'] | amUtc | amLocal | amDateFormat:'L LTS'}}</td>
+          </tr>
+        </table>
+      </div>
+  ##       <h2 class="page-header">Loading data - External array</h2>
+  ##       <div class="bs-callout bs-callout-info">
+  ##         <h4>Overview</h4>
+  ##       </div>
+
+  ##     <table ng-table="wCtrl.tableParams" class="table table-bordered table-striped table-condensed">
+  ##       <tr ng-repeat="doc in $data track by doc.version_id">
+  ## ##         <td data-title="'comment'" filter="{comment: 'text'}" >{{doc.comment}}</td>
+  ##         <td data-title="'version_id'" filter="{version_id: 'number'}" >{{doc.version_id}}</td>
+  ##       </tr>
+  ##     </table>
+
     </div>
 
-    <div id="whatsnew" app-loading>
-      Nothing is loaded here
-    </div>
+##   <div>
+##     <div class="bs-callout bs-callout-info">
+##       <h4>Overview</h4>
+##       <p>When you have the <em>entire</em> dataset available in-memory you can hand this to <code>NgTableParams</code> to manage the filtering, sorting and paging of that array</p>
+##     </div>
+##     <table ng-table="wCtrl.tableParams" class="table table-condensed table-bordered table-striped">
+##       <tr ng-repeat="row in $data">
+##         <td data-title="'Name'" filter="{name: 'text'}" sortable="'name'">{{row.name}}</td>
+##         <td data-title="'Age'" filter="{age: 'number'}" sortable="'age'">{{row.age}}</td>
+##         <td data-title="'Money'" filter="{money: 'number'}" sortable="'money'">{{row.money}}</td>
+##       </tr>
+##     </table>
+##   </div>
 
-    <table ng-table="changes.tableParams" class="table table-condensed table-bordered table-striped">
-      <tr ng-repeat="row in $data">
-        <td data-title="'Name'" filter="{name: 'text'}" sortable="'name'">{{row.name}}</td>
-        <td data-title="'Age'" filter="{age: 'number'}" sortable="'age'">{{row.age}}</td>
-        <td data-title="'Money'" filter="{money: 'number'}" sortable="'money'">{{row.money}}</td>
-      </tr>
-    </table>
-
-  </div>
+##   </section>
 
 </section>

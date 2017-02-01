@@ -48,6 +48,7 @@ LIBS_JS_FILES += \
     node_modules/angular-slug/angular-slug.js \
     node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js \
     node_modules/file-saver/FileSaver.min.js \
+    node_modules/angular-resource/angular-resource.min.js \
     node_modules/ng-table/bundles/ng-table.min.js \
     node_modules/slug/slug.js
 
