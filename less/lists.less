@@ -76,7 +76,7 @@
 
   .list-item-lang {
     opacity: 0.9;
-    color: #6D6D6D;
+    color: @darkgray;
     white-space: nowrap;
     font-weight: normal;
   }
@@ -85,7 +85,7 @@
   }
   .list-item-title {
     font-weight: bold;
-    color: #6D6D6D;
+    color: @darkgray;
     margin-right: 5px;
     p {
       line-height: normal;
@@ -110,8 +110,7 @@
   .list-item-info {
     margin: auto;
     height: 100%;
-    width: 100%;
-    font-size: 0.9em;
+    width: 100;
     text-decoration: none;
     color: #919191;
     font-weight: normal;
@@ -217,7 +216,7 @@
       .calc(width, "100% - 30px");
     }
     .glyphicon-pencil {
-      color: #a9a9a9 !important;
+      color: @lightgray !important;
     }
     .book-type {
       color: @bright-green;
@@ -253,7 +252,7 @@
       padding-right: 5px;
       float: left;
       font-size: 1.8em;
-      color: #b2bcc4 !important;
+      color: @gray !important;
     }
     .activities {
       margin-right: 5px;
@@ -271,7 +270,7 @@
       margin: inherit;
     }
     .outing-author {
-      color: gray;
+      color: @gray;
       align-items: flex-end;
       .flex();
     }
@@ -293,7 +292,7 @@
     }
     .icon-user {
       font-size: 2.5em;
-      color: gray !important;
+      color: @gray !important;
     }
     button {
       float: right;
@@ -333,7 +332,7 @@
 }
 
 .documents-list-section, .not-found-section {
-  background-color: @lightgrey;
+  background-color: @lightgray;
   overflow: auto;
   flex-basis: @list-width;
   transition: .3s;
@@ -399,7 +398,7 @@
 #feed .list-item {
   margin-left: 0;
   margin-top: 10px;
-
+  font-size: 0.9em;
   .list-item-info {
     min-height: 60px;
   }
@@ -454,4 +453,5 @@
   padding-left: 10px;
   padding-right: 10px;
   margin: 0;
+  font-size: 0.9em;
 }

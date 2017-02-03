@@ -22,7 +22,7 @@
   }
   .outing-date {
     font-size: 2em;
-    color: darkgray;
+    color: @darkgray;
     text-align: center;
   }
   >h1 {
@@ -224,14 +224,12 @@
       float: left;
       padding: 15px 20px;
       margin-bottom: 0;
-      font-size: 0.9em;
-
+      font-size: 1em;
       @media (max-width: @screen-xs-max) {
         padding: 10px;
       }
     }
     .conditions-levels {
-      font-size: .9em;
       th {
         line-height: 16px;
         color: #8D8D8D;
@@ -492,9 +490,6 @@
       @media @phone {
         padding-top: 1%;
       }
-      @media @tablet {
-        font-size: 14px;
-      }
       ul {
         margin: 0;
       }
@@ -510,7 +505,6 @@
       }
       @media @phone {
         display: block;
-        font-size: 1em;
         margin-left: 10px;
         text-align: left;
       }
@@ -650,7 +644,6 @@ app-add-association {
       /*Using a Bootstrap glyphicon as the bullet point*/
       content: "\e080";
       font-family: 'Glyphicons Halflings';
-      font-size: 12px;
       float: left;
       margin-left: -17px;
       color: @bright-green;
@@ -689,7 +682,6 @@ app-add-association {
 
   @media @tablet {
     right: 30px;
-    font-size: 1em;
     max-width: 200px;
   }
   @media @phone {
@@ -770,7 +762,6 @@ app-add-association {
       max-width: 240px;
       margin: 5px 10px -5px 10px;
       color: dimgray;
-      font-size: 14px;
     }
     img {
       margin: auto auto 0 auto;
