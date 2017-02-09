@@ -1,0 +1,42 @@
+<%inherit file="base.html"/>
+<%namespace file="helpers/common.html" import="show_title"/>
+
+<%block name="metarobots">
+  <meta name="robots" content="index,follow">
+</%block>
+
+<%block name="moduleConstantsValues">
+  ## Set in the data request
+  module.value('mapFeatureCollection', null);
+
+</%block>
+
+<section id="whatsnew">
+
+  <header>
+    <h1 class="text-center" translate>Feed of the latest changes</h1>
+  </header>
+
+  <div class="tools">
+
+##     <h3 class="heading show-phone" ng-click="mainCtrl.animateHeaderIcon($event)" data-toggle="collapse" data-target="#filters">
+##       <span translate>Filters</span><span class="glyphicon glyphicon-menu-down"></span>
+##     </h3>
+##
+##     <div class="row simple-filters">
+##
+##       <span class="filter" id="filters" >
+##         <label translate>user id search</label>
+##         <app-simple-search class="half form" dataset="u"></app-simple-search>
+##         <button type="button" class="btn btn-primary">Reload feed for user</button>
+##       </span>
+##
+##     </div>
+
+  </div>
+
+  <div>
+    <app-feed app-is-changes-feed="true" template-path="/static/partials/feedtable.html"></app-feed>
+  </div>
+
+</section>

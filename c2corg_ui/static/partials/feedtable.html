@@ -1,0 +1,69 @@
+<h4 class="text-center text-danger" translate ng-show="feedCtrl.error">Sorry, there was an error while getting the feed.</h4>
+<h4 class="text-success text-center" translate ng-show="feedCtrl.busy">Loading feed, please wait...</h4>
+<h4 class="text-success text-center" translate ng-show="feedCtrl.noFeed">This user has no recent activity.</h4>
+
+<div ng-show="feedCtrl.documents.length > 0"
+  infinite-scroll="feedCtrl.getDocumentsFromFeed()"
+  infinite-scroll-immediate-check="true"
+  infinite-scroll-distance="0.7"
+  infinite-scroll-disabled="feedCtrl.busy || feedCtrl.error || feedCtrl.feedEnd || feedCtrl.noFeed">
+
+  <div class="table-responsive">
+    <table class="feedtable table table-condensed table-bordered table-striped table-hover">
+
+      <p class="text-success text-center" ng-if="feedCtrl.userId" ng-init="user = feedCtrl.userId;" ng-model="amount = feedCtrl.feedLength;">
+        This feed for the user {{user}} contains {{amount}} changes.</p>
+      <p class="text-success text-center" ng-if="!feedCtrl.userId" ng-model="amount = feedCtrl.feedLength;">
+        This feed contains {{amount}} changes.</p>
+
+      <tr>
+        <th>type</th>
+        <th>written_at</th>
+        <th>quality</th>
+        <th>username</th>
+        <th>version_id</th>
+        <th>document_id</th>
+        <th>lang</th>
+        <th>title</th>
+        <th>comment</th>
+
+      </tr>
+
+      <tr class="feed-list"
+              ng-repeat="doc in feedCtrl.documents track by doc.version_id"
+          ng-init="type = feedCtrl.documentType(doc.document.type)" >
+
+        <td ng-init="feed = true">{{::type}}</td>
+
+        <td data-original-title="999" data-container="body" tooltip-append-to-body="true" tooltip-placement="top" uib-tooltip="{{::doc['written_at']}}">
+          {{::doc['written_at'] | amUtc | amLocal | amDateFormat:'L LTS'}}
+        </td>
+
+        <td>{{::doc['document']['quality']}}</td>
+
+        <td data-original-title="999" data-container="body" tooltip-append-to-body="true" tooltip-placement="top"
+            uib-tooltip="user_id: {{::doc['user']['user_id']}} username: {{::doc['user']['username']}} ">
+          <a ng-href="/profiles/{{::doc['user']['user_id']}}/{{::doc['user']['lang']}}">{{::doc['user']['name']}}</a>
+        </td>
+
+        <td>
+          <a ng-if="doc['document']['version'] > 1" ng-href="{{feedCtrl.getVersionHref(doc)}}">{{::doc['version_id']}}</a>
+        </td>
+
+        <td><a ng-href="{{feedCtrl.getDocHref(doc)}}">{{::doc['document']['document_id']}}</a></td>
+
+        <td>{{::doc['lang']}}</td>
+        <td>{{::doc['document']['title']}}</td>
+        <td>{{::doc['comment']}}</td>
+
+      </tr>
+
+    </table>
+  </div>
+</div>
+
+  <h4 class="text-center text-danger" translate ng-show="feedCtrl.error">Sorry, there was an error while getting the feed.</h4>
+  <h4 class="text-success text-center" translate ng-show="feedCtrl.busy">Loading feed, please wait...</h4>
+  <h4 class="text-success text-center" translate ng-show="feedCtrl.feedEnd">No more feed to load.</h4>
+
+</div>

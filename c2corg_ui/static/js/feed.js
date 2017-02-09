@@ -17,13 +17,20 @@ app.feedDirective = function() {
     bindToController: {
       'userId' : '=appFeedProfile'
     },
-    templateUrl: '/static/partials/feed.html'
+    templateUrl: function(tElement, tAttrs) {
+      if (tAttrs['templatePath']) {
+        return tAttrs['templatePath'];
+      } else {
+        return '/static/partials/feed.html';
+      }
+    }
   };
 };
 app.module.directive('appFeed', app.feedDirective);
 
 
 /**
+ * @param {angular.Attributes} $attrs Attributes.
  * @param {app.Authentication} appAuthentication
  * @param {app.Api} appApi Api service.
  * @param {app.Lang} appLang Lang service.
@@ -32,7 +39,13 @@ app.module.directive('appFeed', app.feedDirective);
  * @ngInject
  * @struct
  */
-app.FeedController = function(appAuthentication, appApi, appLang, imageUrl) {
+app.FeedController = function($attrs, appAuthentication, appApi, appLang, imageUrl, ngeoLocation) {
+
+  /**
+   * @type {ngeo.Location}
+   * @private
+   */
+  this.location_ = ngeoLocation;
 
   /**
    * @type {app.Api}
@@ -107,14 +120,25 @@ app.FeedController = function(appAuthentication, appApi, appLang, imageUrl) {
   this.userId;
 
   /**
+   * @type {number}
+   * @export
+   */
+  this.feedLength;
+
+  /**
    * @type {boolean}
    * @export
    */
   this.isPersonal = !this.userId;
 
+  /**
+   * @type {boolean}
+   * @public
+   */
+  this.isChangesFeed = $attrs['appIsChangesFeed'];
+
   this.getDocumentsFromFeed();
 };
-
 
 /**
  * Fills the feed with documents.
@@ -123,12 +147,19 @@ app.FeedController = function(appAuthentication, appApi, appLang, imageUrl) {
  */
 app.FeedController.prototype.getDocumentsFromFeed = function() {
   this.busy = true;
-  this.api_.readFeed(this.nextToken_, this.lang_.getLang(), this.userId, this.isPersonal).then(function(response) {
+  if (this.isChangesFeed && this.location_.getFragmentParam('u')) {
+    this.userId = parseInt(this.location_.getFragmentParam('u'), 10);
+  }
+  var lang = (this.isChangesFeed ? undefined : this.lang_.getLang());
+  this.api_.readFeed(this.nextToken_, lang, this.userId, this.isPersonal, this.isChangesFeed).then(function(response) {
     this.error = false;
     this.busy = false;
     var data = response['data']['feed'];
     var token = response['data']['pagination_token'];
     this.nextToken_ = token;
+    if (response['data']['total']) {
+      this.feedLength = response['data']['total'];
+    }
 
     for (var i = 0; i < data.length; i++) {
       this.documents.push(data[i]);
@@ -202,6 +233,33 @@ app.FeedController.prototype.createImageUrl = function(filename, suffix) {
  */
 app.FeedController.prototype.documentType = function(type) {
   return app.utils.getDoctype(type).slice(0, -1);
+};
+
+/**
+ * Generate URL address of a document
+ * @param doc {Object}
+ * @returns {string}
+ */
+app.FeedController.prototype.getDocHref = function(doc) {
+  return '/' + app.utils.getDoctype(doc.document.type) + '/'
+    + doc.document.document_id + '/' + doc.lang + '/' + doc.document.title;
+};
+
+/**
+ * Generate URL address to the changed document version
+ * @param doc {Object}
+ * @returns {string | boolean}
+ * @suppress {checkTypes}
+ * @constructor
+ */
+app.FeedController.prototype.getVersionHref = function(doc) {
+  if (doc.document.type != 'i' || doc.document.type != 'u') {
+    var href = '/' + app.utils.getDoctype(doc.document.type) + '/'
+      + doc.document.document_id + '/' + doc.lang + '/' + doc.version_id;
+    return href;
+  } else {
+    return false;
+  }
 };
 
 app.module.controller('appFeedController', app.FeedController);
