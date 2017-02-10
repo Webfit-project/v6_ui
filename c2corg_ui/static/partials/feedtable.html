@@ -17,15 +17,12 @@
         This feed contains {{amount}} changes.</p>
 
       <tr>
-        <th>type</th>
-        <th>written_at</th>
-        <th>quality</th>
-        <th>username</th>
-        <th>version_id</th>
-        <th>document_id</th>
-        <th>lang</th>
-        <th>title</th>
-        <th>comment</th>
+        <th translate>title</th>
+        <th translate>type</th>
+        <th translate>date</th>
+        <th translate>quality</th>
+        <th translate>username</th>
+        <th translate>comment</th>
 
       </tr>
 
@@ -33,27 +30,28 @@
               ng-repeat="doc in feedCtrl.documents track by doc.version_id"
           ng-init="type = feedCtrl.documentType(doc.document.type)" >
 
+        <td>
+          <a ng-if="doc['document']['version'] > 1 && (doc['document']['type'] !== 'i' || doc['document']['type'] !== 'o')"
+             ng-href="{{feedCtrl.getVersionHref(doc)}}">{{::doc['version_id']}}</a>
+          {{::doc['document']['title']}} ({{::doc['lang']}})
+        </td>
+
         <td ng-init="feed = true">{{::type}}</td>
 
         <td data-original-title="999" data-container="body" tooltip-append-to-body="true" tooltip-placement="top" uib-tooltip="{{::doc['written_at']}}">
           {{::doc['written_at'] | amUtc | amLocal | amDateFormat:'L LTS'}}
         </td>
 
-        <td>{{::doc['document']['quality']}}</td>
+        <td ng-if="::doc['document']['quality']"  class="quality"
+            uib-tooltip="{{'quality'| translate}} : {{doc['quality'] | translate}}" tooltip-append-to-body="true">
+           <span class="quality-{{::doc['document']['quality']}}"></span>
+        </td>
 
         <td data-original-title="999" data-container="body" tooltip-append-to-body="true" tooltip-placement="top"
             uib-tooltip="user_id: {{::doc['user']['user_id']}} username: {{::doc['user']['username']}} ">
           <a ng-href="/profiles/{{::doc['user']['user_id']}}/{{::doc['user']['lang']}}">{{::doc['user']['name']}}</a>
         </td>
 
-        <td>
-          <a ng-if="doc['document']['version'] > 1" ng-href="{{feedCtrl.getVersionHref(doc)}}">{{::doc['version_id']}}</a>
-        </td>
-
-        <td><a ng-href="{{feedCtrl.getDocHref(doc)}}">{{::doc['document']['document_id']}}</a></td>
-
-        <td>{{::doc['lang']}}</td>
-        <td>{{::doc['document']['title']}}</td>
         <td>{{::doc['comment']}}</td>
 
       </tr>

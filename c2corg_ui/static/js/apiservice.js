@@ -414,7 +414,7 @@ app.Api.prototype.readFeed = function(token, lang, userId, isPersonal, isChanges
     if (userId) {
       params['u'] = userId;
     }
-    url = '/document/changes';
+    url = '/documents/changes';
   } else if (userId) {
     url = '/profile-feed';
     params['u'] = userId;

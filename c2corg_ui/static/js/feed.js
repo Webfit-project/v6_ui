@@ -253,13 +253,9 @@ app.FeedController.prototype.getDocHref = function(doc) {
  * @constructor
  */
 app.FeedController.prototype.getVersionHref = function(doc) {
-  if (doc.document.type != 'i' || doc.document.type != 'u') {
-    var href = '/' + app.utils.getDoctype(doc.document.type) + '/'
-      + doc.document.document_id + '/' + doc.lang + '/' + doc.version_id;
-    return href;
-  } else {
-    return false;
-  }
+  var href = '/' + app.utils.getDoctype(doc.document.type) + '/'
+    + doc.document.document_id + '/' + doc.lang + '/' + doc.version_id;
+  return href;
 };
 
 app.module.controller('appFeedController', app.FeedController);

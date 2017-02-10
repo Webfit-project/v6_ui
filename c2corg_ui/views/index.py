@@ -57,17 +57,10 @@ class Pages(object):
         return self._get_page(
             'following', 'c2corg_ui:templates/following.html')
 
-    @view_config(route_name='whatsnew',
-                 renderer='c2corg_ui:templates/whatsnew.html')
+    @view_config(route_name='whatsnew')
     def whatsnew(self):
-        resp, data = call_api(self.settings, 'document/changes')
-
-        self.template_input.update({
-            'feed': data['feed'],
-            'total': data['total']
-        })
-
-        return self.template_input
+        return self._get_page(
+            'whatsnew', 'c2corg_ui:templates/whatsnew.html')
 
     def _get_page(self, page_key, template, no_etag=False):
         return get_or_create_page(
